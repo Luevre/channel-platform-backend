@@ -32,6 +32,15 @@ public class PlacementParam {
     @Schema(description = "备注")
     private String remark;
 
+    @Schema(description = "参数分类（场景参数/人员参数/活动参数）")
+    private String category;
+
+    @Schema(description = "参数应用说明")
+    private String paramUsage;
+
+    @Schema(description = "参数管理员")
+    private String manager;
+
     private Long creatorId;
     private String creatorName;
 
@@ -43,4 +52,18 @@ public class PlacementParam {
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updatedAt;
+
+    // ========== 审核相关字段 ==========
+
+    @Schema(description = "审核状态: 0=待审核 1=已审核 2=驳回")
+    private Integer auditStatus;
+
+    @Schema(description = "审核人")
+    private String auditor;
+
+    @Schema(description = "审核时间")
+    private LocalDateTime auditTime;
+
+    @Schema(description = "驳回备注")
+    private String auditRemark;
 }

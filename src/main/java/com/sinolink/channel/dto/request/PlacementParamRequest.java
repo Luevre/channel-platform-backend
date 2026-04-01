@@ -27,4 +27,13 @@ public class PlacementParamRequest {
 
     @Schema(description = "备注")
     private String remark;
+
+    @Schema(description = "参数分类")
+    private String category;
+
+    @Schema(description = "参数应用说明")
+    private String paramUsage;
+
+    @Schema(description = "参数管理员")
+    private String manager;
 }

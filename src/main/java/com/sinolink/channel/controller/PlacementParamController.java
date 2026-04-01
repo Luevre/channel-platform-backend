@@ -2,15 +2,19 @@ package com.sinolink.channel.controller;
 
 import com.sinolink.channel.common.result.PageResult;
 import com.sinolink.channel.common.result.Result;
+import com.sinolink.channel.dto.request.PlacementParamAuditRequest;
 import com.sinolink.channel.dto.request.PlacementParamQueryRequest;
 import com.sinolink.channel.dto.request.PlacementParamRequest;
 import com.sinolink.channel.entity.PlacementParam;
 import com.sinolink.channel.service.PlacementParamService;
+import com.sinolink.channel.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "投放参数管理", description = "投放参数 CRUD 接口")
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class PlacementParamController {
 
     private final PlacementParamService placementParamService;
+    private final JwtUtil jwtUtil;
 
     @Operation(summary = "分页查询投放参数")
     @GetMapping
@@ -53,6 +58,23 @@ public class PlacementParamController {
     @DeleteMapping("/{id}")
     public Result<Void> delete(@PathVariable Long id) {
         placementParamService.delete(id);
+        return Result.success();
+    }
+
+    @Operation(summary = "审核投放参数")
+    @PostMapping("/audit")
+    public Result<Void> audit(
+            @Valid @RequestBody PlacementParamAuditRequest request,
+            HttpServletRequest httpRequest) {
+
+        String currentUser = null;
+        String authHeader = httpRequest.getHeader("Authorization");
+        if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+            currentUser = jwtUtil.getUsernameFromToken(token);
+        }
+
+        placementParamService.audit(request, currentUser);
         return Result.success();
     }
 }
