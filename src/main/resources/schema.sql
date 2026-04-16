@@ -155,3 +155,25 @@ CREATE TABLE IF NOT EXISTS `public_domain_data` (
   PRIMARY KEY (`id`),
   KEY `idx_date_channel` (`data_date`, `channel_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='公域数据表';
+
+-- ----------------------------
+-- 参数字典表
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `param_dict` (
+  `id`                  BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `placement_param_id`  BIGINT       NOT NULL COMMENT '关联投放参数ID',
+  `product_name`        VARCHAR(128) NOT NULL COMMENT '产品名称',
+  `tab_key`             VARCHAR(128) NOT NULL COMMENT '对应tabKey',
+  `deleted`             TINYINT      NOT NULL DEFAULT 0 COMMENT '逻辑删除',
+  `created_at`          DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`          DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_placement_param_id` (`placement_param_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='参数字典表';
+
+-- 初始化参数字典示例数据（渠道编码对应的字典）
+INSERT INTO `param_dict` (`placement_param_id`, `product_name`, `tab_key`) VALUES
+(1, '国金太阳', 'guojin_sun'),
+(1, '国金佣金宝', 'guojin_yjb'),
+(1, '国金期货', 'guojin_futures'),
+(1, '国金基金', 'guojin_fund');

@@ -61,6 +61,9 @@ public class MyParameter {
     @Schema(description = "驳回备注")
     private String auditRemark;
 
-    @Schema(description = "审核结果: 0=待审核 1=通过 2=驳回")
+    @Schema(description = "审核结果: 0=待审核 1=处理中 2=已完成 3=驳回")
     private Integer auditResult;
+
+    @Schema(description = "当前处理人")
+    private String handler;
 }

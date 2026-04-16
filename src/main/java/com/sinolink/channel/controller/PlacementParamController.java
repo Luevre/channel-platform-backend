@@ -5,7 +5,9 @@ import com.sinolink.channel.common.result.Result;
 import com.sinolink.channel.dto.request.PlacementParamAuditRequest;
 import com.sinolink.channel.dto.request.PlacementParamQueryRequest;
 import com.sinolink.channel.dto.request.PlacementParamRequest;
+import com.sinolink.channel.entity.ParamDict;
 import com.sinolink.channel.entity.PlacementParam;
+import com.sinolink.channel.service.ParamDictService;
 import com.sinolink.channel.service.PlacementParamService;
 import com.sinolink.channel.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "投放参数管理", description = "投放参数 CRUD 接口")
 @RestController
 @RequestMapping("/channel/placement-params")
@@ -24,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 public class PlacementParamController {
 
     private final PlacementParamService placementParamService;
+    private final ParamDictService paramDictService;
     private final JwtUtil jwtUtil;
 
     @Operation(summary = "分页查询投放参数")
@@ -76,5 +81,12 @@ public class PlacementParamController {
 
         placementParamService.audit(request, currentUser);
         return Result.success();
+    }
+
+    @Operation(summary = "查询参数字典列表")
+    @GetMapping("/{id}/dict")
+    public Result<List<ParamDict>> listDict(
+            @Parameter(description = "投放参数ID") @PathVariable Long id) {
+        return Result.success(paramDictService.listByPlacementParamId(id));
     }
 }
