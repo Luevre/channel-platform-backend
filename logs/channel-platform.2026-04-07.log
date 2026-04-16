@@ -1,0 +1,57 @@
+2026-04-07 12:55:59 INFO  [background-preinit] org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-04-07 12:55:59 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - Starting ChannelPlatformApplication using Java 17.0.12 with PID 30268 (F:\国金证券\05WEEK_04\后端\channel-platform-backend\target\classes started by lenovo in F:\国金证券\05WEEK_04\后端\channel-platform-backend)
+2026-04-07 12:55:59 DEBUG [main] com.sinolink.channel.ChannelPlatformApplication - Running with Spring Boot v3.2.3, Spring v6.1.4
+2026-04-07 12:55:59 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-07 12:56:02 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-07 12:56:02 INFO  [main] org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-07 12:56:02 INFO  [main] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-07 12:56:02 INFO  [main] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-04-07 12:56:02 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-04-07 12:56:02 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2481 ms
+2026-04-07 12:56:03 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-07 12:56:03 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@430df350
+2026-04-07 12:56:03 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-07 12:56:03 DEBUG [main] com.sinolink.channel.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-07 12:56:05 INFO  [main] org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-04-07 12:56:05 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2026-04-07 12:56:05 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - Started ChannelPlatformApplication in 7.037 seconds (process running for 8.216)
+2026-04-07 12:56:42 INFO  [http-nio-8080-exec-2] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-07 12:56:42 INFO  [http-nio-8080-exec-2] org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-07 12:56:42 INFO  [http-nio-8080-exec-2] org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-04-07 16:00:06 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-07 16:00:06 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-07 16:54:50 INFO  [background-preinit] org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-04-07 16:54:50 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - Starting ChannelPlatformApplication using Java 17.0.12 with PID 31112 (F:\国金证券\05WEEK_04\后端\channel-platform-backend\target\classes started by lenovo in F:\国金证券\05WEEK_04\后端\channel-platform-backend)
+2026-04-07 16:54:50 DEBUG [main] com.sinolink.channel.ChannelPlatformApplication - Running with Spring Boot v3.2.3, Spring v6.1.4
+2026-04-07 16:54:50 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-07 16:54:53 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-07 16:54:53 INFO  [main] org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-07 16:54:53 INFO  [main] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-07 16:54:53 INFO  [main] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-04-07 16:54:53 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-04-07 16:54:53 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2804 ms
+2026-04-07 16:54:54 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-07 16:54:54 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@70b48eb3
+2026-04-07 16:54:54 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-07 16:54:54 DEBUG [main] com.sinolink.channel.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-07 16:54:56 INFO  [main] org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-04-07 16:54:56 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2026-04-07 16:54:56 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - Started ChannelPlatformApplication in 6.614 seconds (process running for 7.815)
+2026-04-07 16:55:14 INFO  [http-nio-8080-exec-2] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-07 16:55:14 INFO  [http-nio-8080-exec-2] org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-07 16:55:14 INFO  [http-nio-8080-exec-2] org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-04-07 16:55:14 WARN  [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@70b48eb3 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-07 16:55:14 WARN  [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@4c22411 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-07 16:55:14 WARN  [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@54f38421 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-07 16:55:14 WARN  [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@4149bb7b (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-07 16:55:14 WARN  [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@5bc47e5b (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-07 16:55:14 WARN  [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@4eb32b9e (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-07 16:55:14 WARN  [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@6a97ce5 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-07 16:55:14 WARN  [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@ab79d28 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-07 16:55:14 WARN  [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@72790c83 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-07 16:55:14 WARN  [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@25412689 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-07 16:55:44 WARN  [http-nio-8080-exec-3] com.sinolink.channel.security.JwtAuthenticationFilter - JWT 处理失败: null
+2026-04-07 16:55:59 WARN  [http-nio-8080-exec-4] com.sinolink.channel.security.JwtAuthenticationFilter - JWT 处理失败: null
+2026-04-07 16:56:22 WARN  [http-nio-8080-exec-7] com.sinolink.channel.security.JwtAuthenticationFilter - JWT 处理失败: null
+2026-04-07 16:56:37 WARN  [http-nio-8080-exec-8] com.sinolink.channel.security.JwtAuthenticationFilter - JWT 处理失败: null
+2026-04-07 16:56:39 WARN  [http-nio-8080-exec-1] com.sinolink.channel.security.JwtAuthenticationFilter - JWT 处理失败: null
