@@ -122,6 +122,7 @@ public class ConvStrategyServiceImpl implements ConvStrategyService {
         strategy.setCreatorName(getCurrentUsername());
         convStrategyMapper.insert(strategy);
         saveNodes(strategy.getId(), request);
+        updateNodeOverview(strategy.getId(), request);
     }
 
     @Override
@@ -134,11 +135,11 @@ public class ConvStrategyServiceImpl implements ConvStrategyService {
         fillStrategy(strategy, request);
         convStrategyMapper.updateById(strategy);
 
-        // 删除旧节点关联，重新写入
         convStrategyNodeMapper.delete(
                 new LambdaQueryWrapper<ConvStrategyNode>()
                         .eq(ConvStrategyNode::getStrategyId, id));
         saveNodes(id, request);
+        updateNodeOverview(id, request);
     }
 
     @Override
@@ -184,6 +185,23 @@ public class ConvStrategyServiceImpl implements ConvStrategyService {
             sn.setSortOrder(i);
             convStrategyNodeMapper.insert(sn);
         }
+    }
+
+    private void updateNodeOverview(Long strategyId, ConvStrategyRequest request) {
+        if (request.getNodes() == null || request.getNodes().isEmpty()) return;
+        List<Long> nodeIds = request.getNodes().stream()
+                .map(ConvStrategyRequest.NodeItem::getNodeId)
+                .collect(Collectors.toList());
+        List<ConvNode> nodes = convNodeMapper.selectBatchIds(nodeIds);
+        Map<Long, String> nameMap = nodes.stream()
+                .collect(Collectors.toMap(ConvNode::getId, ConvNode::getNodeName));
+        String overview = request.getNodes().stream()
+                .map(n -> nameMap.getOrDefault(n.getNodeId(), ""))
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.joining("-"));
+        ConvStrategy strategy = convStrategyMapper.selectById(strategyId);
+        strategy.setNodeOverview(overview);
+        convStrategyMapper.updateById(strategy);
     }
 
     private String getCurrentUsername() {

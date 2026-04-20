@@ -39,6 +39,9 @@ public class ConvStrategy {
     @Schema(description = "策略参数字符串")
     private String strategyParams;
 
+    @Schema(description = "策略节点概览（节点名称拼接）")
+    private String nodeOverview;
+
     @Schema(description = "监测链接")
     private String monitorUrl;
 
