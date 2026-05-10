@@ -22,4 +22,7 @@ public class MyParameterRequest {
 
     @Schema(description = "参数使用说明")
     private String usage;
+
+    @Schema(description = "申请类型: new=新参数申请, existing=已有参数录入")
+    private String applyType;
 }

@@ -65,7 +65,12 @@ public class MyParameterServiceImpl implements MyParameterService {
         param.setUsage(request.getUsage());
         param.setApplicant(getCurrentUsername());
         param.setStatus(0);
-        param.setAuditResult(0); // 默认待审核
+        // 新参数申请走审核流程，已有参数录入直接通过
+        if ("existing".equals(request.getApplyType())) {
+            param.setAuditResult(1); // 已通过
+        } else {
+            param.setAuditResult(0); // 待审核
+        }
         myParameterMapper.insert(param);
     }
 
@@ -113,6 +118,7 @@ public class MyParameterServiceImpl implements MyParameterService {
         MyParameter param = getById(request.getId());
 
         // 更新审核结果（独立字段，不影响 status）
+        // auditResult: 0=待审核 1=已通过 2=已驳回
         param.setAuditResult(request.getAuditResult());
         param.setAuditor(auditor);
         param.setAuditTime(LocalDateTime.now());

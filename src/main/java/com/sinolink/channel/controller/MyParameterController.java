@@ -6,6 +6,8 @@ import com.sinolink.channel.dto.request.MyParameterAuditRequest;
 import com.sinolink.channel.dto.request.MyParameterQueryRequest;
 import com.sinolink.channel.dto.request.MyParameterRequest;
 import com.sinolink.channel.entity.MyParameter;
+import com.sinolink.channel.entity.PlacementParam;
+import com.sinolink.channel.mapper.PlacementParamMapper;
 import com.sinolink.channel.service.MyParameterService;
 import com.sinolink.channel.util.JwtUtil;
 //import com.sinolink.channel.util.JwtUtil;
@@ -18,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "我的参数管理", description = "用户自定义参数 CRUD 接口")
 @RestController
 @RequestMapping("/channel/my-params")
@@ -26,6 +30,7 @@ public class MyParameterController {
 
     private final MyParameterService myParameterService;
     private final JwtUtil jwtUtil;
+    private final PlacementParamMapper placementParamMapper;
 
     @Operation(summary = "分页查询我的参数")
     @GetMapping
@@ -96,5 +101,12 @@ public class MyParameterController {
 
         myParameterService.audit(request, auditor);
         return Result.success();
+    }
+
+    @Operation(summary = "获取投放参数选项", description = "用于添加参数时的下拉选择")
+    @GetMapping("/placement-options")
+    public Result<List<PlacementParam>> getPlacementOptions() {
+        List<PlacementParam> list = placementParamMapper.selectList(null);
+        return Result.success(list);
     }
 }

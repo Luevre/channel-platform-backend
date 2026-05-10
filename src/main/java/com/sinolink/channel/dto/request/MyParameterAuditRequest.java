@@ -10,7 +10,7 @@ public class MyParameterAuditRequest {
     @Schema(description = "申请单ID", required = true)
     private Long id;
 
-    @Schema(description = "审核结果: 1=通过 2=驳回", required = true)
+    @Schema(description = "审核结果: 0=待审核 1=已通过 2=已驳回", required = true)
     private Integer auditResult;
 
     @Schema(description = "驳回备注（驳回时必填）")
