@@ -6,6 +6,11 @@ server:
 spring:
   application:
     name: channel-platform
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/channel_platform?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
@@ -31,6 +36,12 @@ jwt:
   secret: ${JWT_SECRET:your-super-secret-key-change-in-production-must-be-32-chars}
   expiration: 2592000000     # 24小时（毫秒）
   refresh-expiration: 2592000000  # 7天
+
+# Anthropic Claude API
+anthropic:
+  api-key: ${ANTHROPIC_API_KEY:sk-wM2VNWdMlSqccsu5iIcT6RoXrqwCoBhMQgiFEN4EXDvTA2eQ}
+  model: claude-sonnet-4-6
+  base-url: ${ANTHROPIC_BASE_URL:https://api.aipaibox.com}
 
 # SpringDoc Swagger
 springdoc:
