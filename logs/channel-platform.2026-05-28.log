@@ -1,0 +1,34 @@
+2026-05-28 13:19:18 INFO  [background-preinit] org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-05-28 13:19:18 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - Starting ChannelPlatformApplication using Java 17.0.12 with PID 33456 (F:\国金证券\05WEEK_04\后端\channel-platform-backend\target\classes started by lenovo in F:\国金证券\05WEEK_04\后端\channel-platform-backend)
+2026-05-28 13:19:18 DEBUG [main] com.sinolink.channel.ChannelPlatformApplication - Running with Spring Boot v3.2.3, Spring v6.1.4
+2026-05-28 13:19:18 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - No active profile set, falling back to 1 default profile: "default"
+2026-05-28 13:19:25 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-28 13:19:25 INFO  [main] org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-05-28 13:19:25 INFO  [main] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-05-28 13:19:25 INFO  [main] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-05-28 13:19:26 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-05-28 13:19:26 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 7767 ms
+2026-05-28 13:19:29 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-28 13:19:30 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@17ec335a
+2026-05-28 13:19:30 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-28 13:19:30 DEBUG [main] com.sinolink.channel.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-05-28 13:19:32 INFO  [main] org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-05-28 13:19:35 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2026-05-28 13:19:35 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - Started ChannelPlatformApplication in 19.082 seconds (process running for 22.551)
+2026-05-28 13:19:46 INFO  [http-nio-8080-exec-1] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-28 13:19:46 INFO  [http-nio-8080-exec-1] org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-28 13:19:46 INFO  [http-nio-8080-exec-1] org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-05-28 13:19:46 WARN  [http-nio-8080-exec-5] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71407795 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:19:46.795Z. Allowed clock skew: 0 milliseconds.
+2026-05-28 13:19:46 WARN  [http-nio-8080-exec-6] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71407795 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:19:46.795Z. Allowed clock skew: 0 milliseconds.
+2026-05-28 13:19:46 WARN  [http-nio-8080-exec-7] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71407835 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:19:46.835Z. Allowed clock skew: 0 milliseconds.
+2026-05-28 13:19:46 WARN  [http-nio-8080-exec-8] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71407838 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:19:46.838Z. Allowed clock skew: 0 milliseconds.
+2026-05-28 13:19:47 WARN  [http-nio-8080-exec-9] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71408942 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:19:47.942Z. Allowed clock skew: 0 milliseconds.
+2026-05-28 13:19:47 WARN  [http-nio-8080-exec-10] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71408957 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:19:47.957Z. Allowed clock skew: 0 milliseconds.
+2026-05-28 13:19:49 WARN  [http-nio-8080-exec-4] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71410766 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:19:49.766Z. Allowed clock skew: 0 milliseconds.
+2026-05-28 13:19:49 WARN  [http-nio-8080-exec-3] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71410780 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:19:49.780Z. Allowed clock skew: 0 milliseconds.
+2026-05-28 13:19:49 WARN  [http-nio-8080-exec-6] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71410961 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:19:49.961Z. Allowed clock skew: 0 milliseconds.
+2026-05-28 13:21:18 WARN  [http-nio-8080-exec-4] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71499551 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:21:18.551Z. Allowed clock skew: 0 milliseconds.
+2026-05-28 13:21:18 WARN  [http-nio-8080-exec-3] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71499572 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:21:18.572Z. Allowed clock skew: 0 milliseconds.
+2026-05-28 13:22:13 WARN  [http-nio-8080-exec-8] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71554348 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:22:13.348Z. Allowed clock skew: 0 milliseconds.
+2026-05-28 13:22:13 WARN  [http-nio-8080-exec-2] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71554357 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:22:13.357Z. Allowed clock skew: 0 milliseconds.
+2026-05-28 13:22:13 WARN  [http-nio-8080-exec-7] com.sinolink.channel.util.JwtUtil - JWT 已过期: JWT expired 71554610 milliseconds ago at 2026-05-27T09:29:39.000Z. Current time: 2026-05-28T05:22:13.610Z. Allowed clock skew: 0 milliseconds.

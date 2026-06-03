@@ -19,4 +19,16 @@ public interface ConvStrategyService {
     void delete(Long id);
 
     void archive(Long id);
+
+    /** 审核列表（待审核） */
+    PageResult<ConvStrategy> listReview(ConvStrategyQueryRequest query);
+
+    /** 审核详情 */
+    ConvStrategyVO getReviewById(Long id);
+
+    /** 审核通过 */
+    void passReview(Long id);
+
+    /** 审核驳回 */
+    void rejectReview(Long id, String auditRemark);
 }

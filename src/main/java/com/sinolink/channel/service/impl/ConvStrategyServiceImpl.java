@@ -89,8 +89,9 @@ public class ConvStrategyServiceImpl implements ConvStrategyService {
                 if (node != null) {
                     item.setNodeName(node.getNodeName());
                     item.setConvType(node.getConvType());
+                    item.setEventCategory(node.getEventCategory());
                     item.setEventDesc(node.getEventDesc());
-                    item.setEventJudge(node.getEventJudge());
+                    item.setConvValue(node.getEventJudge());
                 }
                 return item;
             }).collect(Collectors.toList());
@@ -107,6 +108,10 @@ public class ConvStrategyServiceImpl implements ConvStrategyService {
         vo.setAdInfo(strategy.getAdInfo());
         vo.setStrategyParams(strategy.getStrategyParams());
         vo.setMonitorUrl(strategy.getMonitorUrl());
+        vo.setDescription(strategy.getDescription());
+        vo.setApplicant(strategy.getCreatorName());
+        vo.setAuditStatus(strategy.getAuditStatus());
+        vo.setNodeOverview(strategy.getNodeOverview());
         vo.setCreatorName(strategy.getCreatorName());
         vo.setCreatedAt(strategy.getCreatedAt());
         vo.setUpdatedAt(strategy.getUpdatedAt());
@@ -120,6 +125,7 @@ public class ConvStrategyServiceImpl implements ConvStrategyService {
         ConvStrategy strategy = new ConvStrategy();
         fillStrategy(strategy, request);
         strategy.setCreatorName(getCurrentUsername());
+        strategy.setAuditStatus(0);
         convStrategyMapper.insert(strategy);
         saveNodes(strategy.getId(), request);
         updateNodeOverview(strategy.getId(), request);
@@ -158,6 +164,76 @@ public class ConvStrategyServiceImpl implements ConvStrategyService {
     @Override
     public void archive(Long id) {
         delete(id);
+    }
+
+    @Override
+    public PageResult<ConvStrategy> listReview(ConvStrategyQueryRequest query) {
+        LambdaQueryWrapper<ConvStrategy> wrapper = new LambdaQueryWrapper<ConvStrategy>()
+                .eq(ConvStrategy::getAuditStatus, 0)
+                .eq(ConvStrategy::getDeleted, 0)
+                .like(StringUtils.hasText(query.getStrategyName()),
+                        ConvStrategy::getStrategyName, query.getStrategyName())
+                .like(StringUtils.hasText(query.getChannel()),
+                        ConvStrategy::getChannel, query.getChannel())
+                .eq(StringUtils.hasText(query.getStrategyRule()),
+                        ConvStrategy::getStrategyRule, query.getStrategyRule())
+                .like(StringUtils.hasText(query.getCreatorName()),
+                        ConvStrategy::getCreatorName, query.getCreatorName())
+                .ge(StringUtils.hasText(query.getStartTime()),
+                        ConvStrategy::getCreatedAt, parseTime(query.getStartTime()))
+                .le(StringUtils.hasText(query.getEndTime()),
+                        ConvStrategy::getCreatedAt, parseTime(query.getEndTime()))
+                .orderByDesc(ConvStrategy::getCreatedAt);
+
+        Page<ConvStrategy> page = convStrategyMapper.selectPage(
+                new Page<>(query.getCurrent(), query.getSize()), wrapper);
+        return PageResult.of(page);
+    }
+
+    @Override
+    public ConvStrategyVO getReviewById(Long id) {
+        ConvStrategyVO vo = getById(id);
+        if (vo == null) return null;
+        // getById populates from the entity; explicitly include audit fields
+        ConvStrategy strategy = convStrategyMapper.selectById(id);
+        if (strategy != null) {
+            vo.setAuditStatus(strategy.getAuditStatus());
+            vo.setAuditRemark(strategy.getAuditRemark());
+        }
+        return vo;
+    }
+
+    @Override
+    @Transactional
+    public void passReview(Long id) {
+        ConvStrategy strategy = convStrategyMapper.selectById(id);
+        if (strategy == null) {
+            throw new BusinessException("回传策略不存在");
+        }
+        if (strategy.getAuditStatus() != null && strategy.getAuditStatus() != 0) {
+            throw new BusinessException("该策略已审核，不能重复操作");
+        }
+        ConvStrategy update = new ConvStrategy();
+        update.setId(id);
+        update.setAuditStatus(1);
+        convStrategyMapper.updateById(update);
+    }
+
+    @Override
+    @Transactional
+    public void rejectReview(Long id, String auditRemark) {
+        ConvStrategy strategy = convStrategyMapper.selectById(id);
+        if (strategy == null) {
+            throw new BusinessException("回传策略不存在");
+        }
+        if (strategy.getAuditStatus() != null && strategy.getAuditStatus() != 0) {
+            throw new BusinessException("该策略已审核，不能重复操作");
+        }
+        ConvStrategy update = new ConvStrategy();
+        update.setId(id);
+        update.setAuditStatus(2);
+        update.setAuditRemark(auditRemark);
+        convStrategyMapper.updateById(update);
     }
 
     // ---------- 私有方法 ----------

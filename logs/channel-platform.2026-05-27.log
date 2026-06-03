@@ -1,15 +1,15 @@
-2026-04-14 09:23:20 INFO  [background-preinit] org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
-2026-04-14 09:23:20 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - Starting ChannelPlatformApplication using Java 17.0.12 with PID 8228 (F:\国金证券\05WEEK_04\后端\channel-platform-backend\target\classes started by lenovo in F:\国金证券\05WEEK_04\后端\channel-platform-backend)
-2026-04-14 09:23:20 DEBUG [main] com.sinolink.channel.ChannelPlatformApplication - Running with Spring Boot v3.2.3, Spring v6.1.4
-2026-04-14 09:23:20 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - No active profile set, falling back to 1 default profile: "default"
-2026-04-14 09:23:24 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-04-14 09:23:24 INFO  [main] org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2026-04-14 09:23:24 INFO  [main] org.apache.catalina.core.StandardService - Starting service [Tomcat]
-2026-04-14 09:23:24 INFO  [main] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2026-04-14 09:23:24 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2026-04-14 09:23:24 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3701 ms
-2026-04-14 09:23:25 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-04-14 09:23:26 ERROR [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Exception during pool initialization.
+2026-05-27 11:25:28 INFO  [background-preinit] org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-05-27 11:25:29 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - Starting ChannelPlatformApplication using Java 17.0.12 with PID 30888 (F:\国金证券\05WEEK_04\后端\channel-platform-backend\target\classes started by lenovo in F:\国金证券\05WEEK_04\后端\channel-platform-backend)
+2026-05-27 11:25:29 DEBUG [main] com.sinolink.channel.ChannelPlatformApplication - Running with Spring Boot v3.2.3, Spring v6.1.4
+2026-05-27 11:25:29 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - No active profile set, falling back to 1 default profile: "default"
+2026-05-27 11:25:37 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-27 11:25:37 INFO  [main] org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-05-27 11:25:37 INFO  [main] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-05-27 11:25:37 INFO  [main] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-05-27 11:25:38 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-05-27 11:25:38 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 8925 ms
+2026-05-27 11:26:05 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-27 11:26:07 ERROR [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Exception during pool initialization.
 com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
 
 The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
@@ -158,15 +158,16 @@ Caused by: java.net.ConnectException: Connection refused: no further information
 	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:153)
 	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:62)
 	... 118 common frames omitted
-2026-04-14 09:23:26 DEBUG [main] com.sinolink.channel.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
-2026-04-14 09:23:28 INFO  [main] org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2026-04-14 09:23:28 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
-2026-04-14 09:23:28 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - Started ChannelPlatformApplication in 8.617 seconds (process running for 9.677)
-2026-04-14 09:25:18 INFO  [http-nio-8080-exec-2] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-04-14 09:25:18 INFO  [http-nio-8080-exec-2] org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-04-14 09:25:18 INFO  [http-nio-8080-exec-2] org.springframework.web.servlet.DispatcherServlet - Completed initialization in 3 ms
-2026-04-14 09:25:18 INFO  [http-nio-8080-exec-3] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-04-14 09:25:18 INFO  [http-nio-8080-exec-3] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2a4a9699
-2026-04-14 09:25:18 INFO  [http-nio-8080-exec-3] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-04-14 17:22:14 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-04-14 17:22:14 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-05-27 11:26:07 DEBUG [main] com.sinolink.channel.security.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-05-27 11:26:11 INFO  [main] org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-05-27 11:26:12 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2026-05-27 11:26:12 INFO  [main] com.sinolink.channel.ChannelPlatformApplication - Started ChannelPlatformApplication in 45.903 seconds (process running for 50.609)
+2026-05-27 11:28:23 INFO  [http-nio-8080-exec-3] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-27 11:28:23 INFO  [http-nio-8080-exec-3] org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-27 11:28:23 INFO  [http-nio-8080-exec-3] org.springframework.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2026-05-27 11:28:24 INFO  [http-nio-8080-exec-4] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-27 11:28:24 INFO  [http-nio-8080-exec-4] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@b3456b4
+2026-05-27 11:28:24 INFO  [http-nio-8080-exec-4] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-27 15:09:09 INFO  [http-nio-8080-exec-1] com.sinolink.channel.controller.AgentController - 收到 AI 对话请求, sessionId=null
+2026-05-27 15:09:10 INFO  [http-nio-8080-exec-1] com.sinolink.channel.service.impl.AgentServiceImpl - Skill 路由: param_apply
+2026-05-27 15:09:10 DEBUG [http-nio-8080-exec-1] com.sinolink.channel.service.impl.AgentServiceImpl - DeepSeek 请求: {"model":"deepseek-chat","max_tokens":2048,"messages":[{"role":"system","content":"你是国金证券渠道投放平台的【参数申请专员】，只处理投放参数的申请与配置，其他任何业务一律拒绝。\n\n【格式要求】回复使用纯文本，禁止 Markdown 语法（**加粗**、# 标题、- 列表等一律禁止）。唯一例外：必须用 JSON 代码块包裹预填卡。\n\n【绝对禁止】\n- 禁止在回复中出现\"回传策略\"、\"回传节点\"、\"策略模型\"等词汇\n- 禁止输出 strategy_prefill_card、delivery_prefill_card 或任何非 param_prefill_card 的 JSON 块\n- 禁止推荐节点、分析渠道策略、查询回传数据\n\n【核心目标】用户描述参数需求后，立即搜索参数库，然后输出 param_prefill_card，不得逐个追问字段。\n\n执行流程：\n\nStep 1 —— 搜索参数库\n调用 query_params，用用户描述中的关键词搜索（如\"统计\"、\"注...

@@ -13,6 +13,9 @@ public class AgentChatRequest {
 
     private String sessionId;
 
+    /** 技能类型：param_apply / delivery_config / strategy_config / general（null 则由 Dispatcher 自动识别） */
+    private String skillType;
+
     @Data
     public static class Message {
         private String role;

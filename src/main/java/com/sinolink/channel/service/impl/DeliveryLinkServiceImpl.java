@@ -74,6 +74,7 @@ public class DeliveryLinkServiceImpl implements DeliveryLinkService {
         DeliveryLink link = new DeliveryLink();
         link.setLinkName(request.getLinkName());
         link.setChannel(request.getChannel());
+        link.setChannelCode(request.getChannelCode());
         link.setContent(request.getContent());
         link.setPromoMode(request.getPromoMode());
         link.setOriginUrl(request.getOriginUrl());
@@ -97,6 +98,7 @@ public class DeliveryLinkServiceImpl implements DeliveryLinkService {
         DeliveryLink link = getById(id);
         link.setLinkName(request.getLinkName());
         link.setChannel(request.getChannel());
+        link.setChannelCode(request.getChannelCode());
         link.setContent(request.getContent());
         link.setPromoMode(request.getPromoMode());
         link.setOriginUrl(request.getOriginUrl());

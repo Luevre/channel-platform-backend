@@ -12,8 +12,7 @@ public class MyParameterRequest {
     @Schema(description = "参数应用场景", example = "抖音下载链路")
     private String scene;
 
-    @NotBlank(message = "参数值不能为空")
-    @Schema(description = "参数值", example = "2400000000000")
+    @Schema(description = "参数值，新参数申请时可为空，已有参数录入时必填", example = "2400000000000")
     private String value;
 
     @NotBlank(message = "参数名不能为空")

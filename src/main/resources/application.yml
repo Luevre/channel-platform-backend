@@ -34,14 +34,14 @@ mybatis-plus:
 # JWT 配置
 jwt:
   secret: ${JWT_SECRET:your-super-secret-key-change-in-production-must-be-32-chars}
-  expiration: 2592000000     # 24小时（毫秒）
-  refresh-expiration: 2592000000  # 7天
+  expiration: 2592000000     # 30天（毫秒）
+  refresh-expiration: 2592000000  # 30天
 
-# Anthropic Claude API
-anthropic:
-  api-key: ${ANTHROPIC_API_KEY:sk-wM2VNWdMlSqccsu5iIcT6RoXrqwCoBhMQgiFEN4EXDvTA2eQ}
-  model: claude-sonnet-4-6
-  base-url: ${ANTHROPIC_BASE_URL:https://api.aipaibox.com}
+# DeepSeek API
+deepseek:
+  api-key: ${DEEPSEEK_API_KEY:sk-959ea8abef3847cfaf21b459c8aedd52}
+  model: deepseek-chat
+  base-url: ${DEEPSEEK_BASE_URL:https://api.deepseek.com}
 
 # SpringDoc Swagger
 springdoc:

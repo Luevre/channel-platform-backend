@@ -18,6 +18,10 @@ public class DeliveryLinkRequest {
     @Schema(description = "投放渠道")
     private String channel;
 
+    @NotBlank(message = "渠道编码不能为空")
+    @Schema(description = "渠道代码，如 douyin / jingdong / txzxg")
+    private String channelCode;
+
     @NotBlank(message = "投放内容不能为空")
     @Schema(description = "投放内容")
     private String content;

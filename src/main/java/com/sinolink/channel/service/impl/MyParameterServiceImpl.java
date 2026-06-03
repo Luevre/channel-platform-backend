@@ -8,9 +8,7 @@ import com.sinolink.channel.dto.request.MyParameterAuditRequest;
 import com.sinolink.channel.dto.request.MyParameterQueryRequest;
 import com.sinolink.channel.dto.request.MyParameterRequest;
 import com.sinolink.channel.entity.MyParameter;
-import com.sinolink.channel.entity.PlacementParam;
 import com.sinolink.channel.mapper.MyParameterMapper;
-import com.sinolink.channel.mapper.PlacementParamMapper;
 import com.sinolink.channel.service.MyParameterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -26,7 +24,6 @@ import java.time.LocalDateTime;
 public class MyParameterServiceImpl implements MyParameterService {
 
     private final MyParameterMapper myParameterMapper;
-    private final PlacementParamMapper placementParamMapper;
 
     @Override
     public PageResult<MyParameter> page(MyParameterQueryRequest query) {
@@ -60,7 +57,7 @@ public class MyParameterServiceImpl implements MyParameterService {
     public void create(MyParameterRequest request) {
         MyParameter param = new MyParameter();
         param.setScene(request.getScene());
-        param.setValue(request.getValue());
+        param.setValue(request.getValue() != null ? request.getValue() : "");
         param.setParameterName(request.getParameterName());
         param.setUsage(request.getUsage());
         param.setApplicant(getCurrentUsername());
@@ -125,17 +122,8 @@ public class MyParameterServiceImpl implements MyParameterService {
         param.setAuditRemark(request.getAuditRemark());
         myParameterMapper.updateById(param);
 
-        // 审核通过 → 写入正式参数表
-        if (request.getAuditResult() == 1) {
-            PlacementParam placement = new PlacementParam();
-            placement.setParamName(param.getScene());
-            placement.setParamKey(param.getParameterName());
-            placement.setParamValue(param.getValue());
-            placement.setParamUsage(param.getUsage());
-            placement.setStatus(1);
-            placement.setCreatorName(param.getApplicant());
-            placementParamMapper.insert(placement);
-        }
+        // 审核通过仅更新 my_parameter 自身状态，不同步写入 placement_param
+        // 投放参数管理（placement_param）由管理员在"投放参数配置"页面单独维护
     }
 
     private String getCurrentUsername() {

@@ -2,6 +2,7 @@ package com.sinolink.channel.controller;
 
 import com.sinolink.channel.common.result.PageResult;
 import com.sinolink.channel.common.result.Result;
+import com.sinolink.channel.dto.request.ConvStrategyAuditRequest;
 import com.sinolink.channel.dto.request.ConvStrategyQueryRequest;
 import com.sinolink.channel.dto.request.ConvStrategyRequest;
 import com.sinolink.channel.dto.response.ConvStrategyVO;
@@ -14,7 +15,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "回传策略管理", description = "回传策略 CRUD 接口")
+@Tag(name = "回传策略管理", description = "回传策略 CRUD 及审核接口")
 @RestController
 @RequestMapping("/channel/conv-strategies")
 @RequiredArgsConstructor
@@ -64,6 +65,38 @@ public class ConvStrategyController {
     public Result<Void> archive(
             @Parameter(description = "策略ID") @PathVariable Long id) {
         convStrategyService.archive(id);
+        return Result.success();
+    }
+
+    // ========== 审核接口 ==========
+
+    @Operation(summary = "待审核列表")
+    @GetMapping("/review/list")
+    public Result<PageResult<ConvStrategy>> reviewList(ConvStrategyQueryRequest query) {
+        return Result.success(convStrategyService.listReview(query));
+    }
+
+    @Operation(summary = "审核详情")
+    @GetMapping("/review/{id}")
+    public Result<ConvStrategyVO> reviewDetail(
+            @Parameter(description = "策略ID") @PathVariable Long id) {
+        return Result.success(convStrategyService.getReviewById(id));
+    }
+
+    @Operation(summary = "审核通过")
+    @PostMapping("/review/{id}/pass")
+    public Result<Void> passReview(
+            @Parameter(description = "策略ID") @PathVariable Long id) {
+        convStrategyService.passReview(id);
+        return Result.success();
+    }
+
+    @Operation(summary = "审核驳回")
+    @PostMapping("/review/{id}/reject")
+    public Result<Void> rejectReview(
+            @Parameter(description = "策略ID") @PathVariable Long id,
+            @Valid @RequestBody ConvStrategyAuditRequest request) {
+        convStrategyService.rejectReview(id, request.getAuditRemark());
         return Result.success();
     }
 }

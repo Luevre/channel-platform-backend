@@ -125,7 +125,18 @@ CREATE TABLE IF NOT EXISTS `deeplink` (
 CREATE TABLE IF NOT EXISTS `conv_strategy` (
   `id`            BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `strategy_name` VARCHAR(128) NOT NULL COMMENT '策略名称',
+  `channel`       VARCHAR(100) DEFAULT NULL COMMENT '投放渠道',
   `channel_code`  VARCHAR(32)  NOT NULL COMMENT '渠道代码',
+  `description`   VARCHAR(500) DEFAULT NULL COMMENT '策略描述',
+  `audit_status`  TINYINT      DEFAULT 0 COMMENT '0=待审核 1=已通过 2=已驳回',
+  `audit_remark`  VARCHAR(500) DEFAULT NULL COMMENT '审核备注（驳回原因）',
+  `biz_no`        VARCHAR(64)  DEFAULT NULL COMMENT '业务编号',
+  `strategy_rule` VARCHAR(512) DEFAULT NULL COMMENT '策略规则',
+  `callback_ratio` INT         DEFAULT NULL COMMENT '回传比例（0-100）',
+  `ad_info`       VARCHAR(256) DEFAULT NULL COMMENT '广告商',
+  `strategy_params` VARCHAR(512) DEFAULT NULL COMMENT '策略参数字符串',
+  `node_overview` VARCHAR(512) DEFAULT NULL COMMENT '策略节点概览',
+  `monitor_url`   VARCHAR(512) DEFAULT NULL COMMENT '监测链接',
   `node_ids`      VARCHAR(512) DEFAULT NULL COMMENT '关联节点ID列表（逗号分隔）',
   `trigger_rule`  VARCHAR(512) DEFAULT NULL COMMENT '触发规则JSON',
   `status`        TINYINT      NOT NULL DEFAULT 1 COMMENT '状态',
@@ -177,3 +188,94 @@ INSERT INTO `param_dict` (`placement_param_id`, `product_name`, `tab_key`) VALUE
 (1, '国金佣金宝', 'guojin_yjb'),
 (1, '国金期货', 'guojin_futures'),
 (1, '国金基金', 'guojin_fund');
+
+-- ----------------------------
+-- 投放链接表（母链库）
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `delivery_link` (
+  `id`                   BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `link_name`            VARCHAR(128) NOT NULL COMMENT '链接名称',
+  `channel`              VARCHAR(64)  NOT NULL COMMENT '投放渠道',
+  `channel_code`         VARCHAR(64)  DEFAULT NULL COMMENT '渠道代码, 如 douyin/jingdong/kuaishou',
+  `content`              VARCHAR(256) DEFAULT NULL COMMENT '投放内容',
+  `promo_mode`           VARCHAR(64)  DEFAULT NULL COMMENT '推广模式',
+  `origin_url`           VARCHAR(1024) NOT NULL COMMENT '原始投放链接',
+  `full_url`             VARCHAR(2048) DEFAULT NULL COMMENT '拼接后完整渠道地址',
+  `short_url`            VARCHAR(256)  DEFAULT NULL COMMENT '短链地址',
+  `short_url_expire_at`  DATETIME     DEFAULT NULL COMMENT '短链失效时间',
+  `link_status`          VARCHAR(32)  DEFAULT 'active' COMMENT '短链状态',
+  `params_json`          TEXT         DEFAULT NULL COMMENT '投放参数JSON',
+  `creator_name`         VARCHAR(64)  DEFAULT NULL COMMENT '创建人姓名',
+  `deleted`              TINYINT      NOT NULL DEFAULT 0 COMMENT '逻辑删除',
+  `created_at`           DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`           DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_channel` (`channel`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='投放链接表（母链库）';
+
+-- 初始化母链测试数据
+INSERT INTO `delivery_link` (`link_name`, `channel`, `content`, `promo_mode`, `origin_url`, `creator_name`) VALUES
+('京东金融-开户引导', '京东金融', '开户引导页', '信息流', 'https://track.jd.com/dl?app=finance&page=open_account', '吴小青'),
+('同花顺-模拟炒股', '同花顺', '模拟炒股大赛', '横幅', 'https://t.10jqka.com.cn/flow?act=paper_trading', '吴小青'),
+('抖音-极速版下载', '抖音', '极速版APP下载', '短视频', 'https://ad.douyin.com/openapi/sdk/track?app=quick', '吴小青');
+
+-- 初始化一些已审核通过的投放参数
+INSERT INTO `placement_param` (`param_name`, `param_key`, `param_value`, `channel_code`, `status`, `category`, `param_usage`, `audit_status`, `auditor`, `creator_name`) VALUES
+('渠道来源', 'utm_source', 'jd_finance', '京东金融', 1, '场景参数', '标识投放渠道来源', 1, '管理员', '吴小青'),
+('推广活动ID', 'utm_campaign', '', '京东金融', 1, '活动参数', '活动标识', 1, '管理员', '吴小青'),
+('推广内容ID', 'utm_content', '', NULL, 1, '场景参数', '区分不同投放内容', 1, '管理员', '吴小青'),
+('渠道来源', 'utm_source', '10jqka', '同花顺', 1, '场景参数', '标识投放渠道来源', 1, '管理员', '吴小青'),
+('设备ID', 'device_id', '', NULL, 1, '人员参数', '设备唯一标识', 1, '管理员', '吴小青');
+
+-- ----------------------------
+-- conv_strategy 表补全字段
+-- 说明：若 conv_strategy 表已存在但缺少以下字段，逐条执行。
+-- 遇到 "Duplicate column" 错误说明字段已存在，可忽略。
+-- ----------------------------
+ALTER TABLE `conv_strategy`
+  ADD COLUMN `channel` VARCHAR(100) COMMENT '投放渠道' AFTER `strategy_name`;
+ALTER TABLE `conv_strategy`
+  ADD COLUMN `description` VARCHAR(500) COMMENT '策略描述' AFTER `channel`;
+ALTER TABLE `conv_strategy`
+  ADD COLUMN `audit_status` TINYINT DEFAULT 0 COMMENT '0=待审核 1=已通过 2=已驳回' AFTER `description`;
+ALTER TABLE `conv_strategy`
+  ADD COLUMN `audit_remark` VARCHAR(500) DEFAULT NULL COMMENT '审核备注（驳回原因）' AFTER `audit_status`;
+
+-- ----------------------------
+-- 回传策略节点关联表
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `conv_strategy_node` (
+  `id`          BIGINT   NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `strategy_id` BIGINT   NOT NULL COMMENT '策略ID',
+  `node_id`     BIGINT   NOT NULL COMMENT '回传节点ID',
+  `sort_order`  INT      DEFAULT 0 COMMENT '节点顺序',
+  `ad_param`    VARCHAR(256) DEFAULT NULL COMMENT '广告商匹配参数',
+  `deleted`     TINYINT  NOT NULL DEFAULT 0 COMMENT '逻辑删除',
+  `created_at`  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_strategy_id` (`strategy_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='回传策略节点关联表';
+
+-- ----------------------------
+-- 追加回传节点测试数据（若表为空）
+-- ----------------------------
+INSERT INTO `conv_node` (`node_name`, `conv_type`, `event_category`, `event_desc`, `event_judge`, `creator_name`)
+SELECT * FROM (
+  SELECT '下载完成', 10, '行为事件', '用户完成APP下载', '客户端finder', '吴小青'
+  UNION ALL SELECT '激活', 11, '行为事件', '用户首次启动APP', '客户端finder', '吴小青'
+  UNION ALL SELECT '注册', 12, '行为事件', '用户完成注册登录', 'H5（防方）finder', '吴小青'
+  UNION ALL SELECT '付费成功', 13, '交易事件', '用户完成首次付费', '数仓业务表识别判断', '吴小青'
+  UNION ALL SELECT '开户', 14, '交易事件', '用户完成证券账户开户', '数仓业务表识别判断', '吴小青'
+) AS tmp
+WHERE NOT EXISTS (SELECT 1 FROM `conv_node` WHERE `conv_type` >= 10 AND `conv_type` <= 14);
+
+-- ----------------------------
+-- 追加回传策略测试数据
+-- ----------------------------
+INSERT INTO `conv_strategy` (`strategy_name`, `channel`, `channel_code`, `description`, `audit_status`, `callback_ratio`, `node_overview`, `creator_name`)
+SELECT * FROM (
+  SELECT '抖音下载回传策略', '抖音', 'douyin', '用于统计抖音渠道广告下载转化', 1, 30, '下载完成 → 激活 → 注册', '吴小青'
+  UNION ALL SELECT '快手开户回传策略', '快手', 'kuaishou', '用于统计快手渠道开户转化数据', 1, 50, '下载完成 → 激活 → 开户', '吴小青'
+  UNION ALL SELECT '京东金融活动回传', '京东金融', 'jd_finance', '京东渠道活动参与回传', 0, 20, '注册 → 付费成功', '吴小青'
+) AS tmp
+WHERE NOT EXISTS (SELECT 1 FROM `conv_strategy` WHERE `channel_code` IN ('douyin', 'kuaishou', 'jd_finance'));

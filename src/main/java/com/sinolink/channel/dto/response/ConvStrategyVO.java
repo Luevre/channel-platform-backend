@@ -20,6 +20,11 @@ public class ConvStrategyVO {
     private String adInfo;
     private String strategyParams;
     private String monitorUrl;
+    private String description;
+    private String applicant;
+    private Integer auditStatus;
+    private String auditRemark;
+    private String nodeOverview;
     private String creatorName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -32,8 +37,9 @@ public class ConvStrategyVO {
         private Long nodeId;
         private String nodeName;
         private Integer convType;
+        private String eventCategory;
         private String eventDesc;
-        private String eventJudge;
+        private String convValue;
         private String adParam;
         private Integer sortOrder;
     }

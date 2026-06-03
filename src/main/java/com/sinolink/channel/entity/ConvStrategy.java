@@ -24,6 +24,15 @@ public class ConvStrategy {
     @Schema(description = "渠道代码（如 douyin）")
     private String channelCode;
 
+    @Schema(description = "策略描述")
+    private String description;
+
+    @Schema(description = "审核状态: 0=待审核 1=已通过 2=已驳回")
+    private Integer auditStatus;
+
+    @Schema(description = "审核备注（驳回原因）")
+    private String auditRemark;
+
     @Schema(description = "业务编号")
     private String bizNo;
 

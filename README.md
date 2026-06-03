@@ -30,6 +30,7 @@
 | 回传节点管理 | `ConvNodeController` | CRUD + 归档 |
 | 回传策略管理 | `ConvStrategyController` | CRUD，关联回传节点 |
 | 投放链接管理 | `DeliveryLinkController` | CRUD |
+| AI 助手（投助） | `AgentController` | 对话入口，调用 Claude API + Function Calling |
 
 ---
 
@@ -101,9 +102,26 @@ http://localhost:8080/api/swagger-ui.html
 | DELETE | `/api/channel/conv-nodes/{id}` | 删除 |
 | PUT | `/api/channel/conv-nodes/{id}/archive` | 归档 |
 
-### 回传策略管理 / 投放链接管理 / 我的参数管理
+### 我的参数管理 / 我的回传节点 / 我的投放场景
 
 接口风格与上述一致，详见 Swagger 文档。
+
+### AI 助手
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| POST | `/api/agent/chat` | 多轮对话入口，支持历史消息上下文 |
+
+请求体：
+```json
+{
+  "message": "帮我查一下抖音渠道的投放参数",
+  "history": [
+    { "role": "user", "content": "..." },
+    { "role": "assistant", "content": "..." }
+  ]
+}
+```
 
 ---
 
@@ -124,20 +142,42 @@ src/main/java/com/sinolink/channel/
 ├── common/
 │   ├── result/                          # 统一响应包装 (Result / PageResult / ResultCode)
 │   └── exception/                       # 全局异常处理
-├── entity/                              # 数据库实体 (7 张表)
-├── mapper/                              # MyBatis-Plus Mapper (10 个)
+├── entity/                              # 数据库实体 (8 张表)
+├── mapper/                              # MyBatis-Plus Mapper (11 个)
 ├── dto/
-│   ├── request/                         # 请求 DTO
-│   └── response/                        # 响应 VO
+│   ├── request/                         # 请求 DTO（含 AgentChatRequest）
+│   └── response/                        # 响应 VO（含 AgentChatResponse）
 ├── service/                             # Service 接口
-│   └── impl/                            # Service 实现 (6 个)
-└── controller/                          # REST Controller (6 个)
+│   └── impl/                            # Service 实现 (7 个，含 AgentServiceImpl)
+└── controller/                          # REST Controller (7 个，含 AgentController)
 
 src/main/resources/
 ├── application.yml                      # 应用配置
 ├── schema.sql                           # 数据库初始化脚本
 └── logback-spring.xml                   # 日志配置
 ```
+
+### Agent Skills（投助 AI 工具）
+
+`AgentServiceImpl` 通过 Claude Function Calling 注册了以下 13 个 tool，每个 tool 均直连数据库：
+
+| Tool 名称 | 功能描述 |
+|-----------|---------|
+| `query_params` | 按关键词 / 分类查询投放参数列表 |
+| `get_param_detail` | 查询单个投放参数详情及审核状态 |
+| `create_param_application` | 发起投放参数申请（写入审核流程） |
+| `query_conv_nodes` | 按关键词 / convType 查询回传节点 |
+| `query_conv_strategy` | 查询渠道已关联的回传策略配置 |
+| `query_conv_strategies` | 按关键词搜索现有回传策略列表 |
+| `create_conv_strategy_application` | 创建回传策略配置申请 |
+| `query_launch_scenes` | 按关键词 / 渠道查询投放场景 |
+| `generate_launch_link` | 根据场景 ID 生成完整投放链接 |
+| `query_delivery_links` | 按关键词搜索母链库 |
+| `query_params_for_link` | 查询指定母链所需拼接参数列表 |
+| `generate_delivery_url` | 根据母链和参数键值对拼接投放 URL |
+| `create_delivery_link` | 在母链库中新建投放链接 |
+
+**新增 tool 的位置**：`AgentServiceImpl.java` 中的 `buildToolDefinitions()` 方法（注册 tool 定义）和对应的 `dispatchToolCall()` 分支（实现数据库逻辑）。
 
 ---
 
@@ -165,9 +205,26 @@ axios.interceptors.request.use(config => {
 
 ---
 
+## Agent 配置
+
+`application.yml` 中配置 Claude API：
+
+```yaml
+claude:
+  api-key: ${CLAUDE_API_KEY}
+  model: claude-sonnet-4-6
+  base-url: https://api.aipaibox.com
+```
+
+对话最多支持 **8 轮 tool 调用**（`MAX_TOOL_ROUNDS = 8`），超出后直接返回当前 assistant 消息。
+
+---
+
 ## 待扩展
 
 - [ ] DeepLink 管理
 - [ ] 公域数据管理
 - [ ] 渠道投放成效报表
 - [ ] 用户 & 角色管理（修改密码、权限控制）
+- [ ] Agent skill：查询我的回传节点审核状态
+- [ ] Agent skill：查询投放成效数据

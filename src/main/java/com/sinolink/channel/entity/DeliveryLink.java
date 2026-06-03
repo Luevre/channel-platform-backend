@@ -20,6 +20,9 @@ public class DeliveryLink {
     @Schema(description = "投放渠道")
     private String channel;
 
+    @Schema(description = "渠道代码（如 douyin / jingdong / txzxg）")
+    private String channelCode;
+
     @Schema(description = "投放内容")
     private String content;
 
